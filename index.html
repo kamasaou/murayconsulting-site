@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muray Consulting</title>
+  <meta name="description" content="Non‑destructive imaging for complex assets and structures. Minimal, modern, fast." />
+  <meta name="theme-color" content="#0b0b0c" />
+  <style>
+    /* ===== Dark minimal + orange/white accent (Point72-esque cleanliness, Canva sample colorway) ===== */
+    :root{
+      --bg:#0b0b0c;        /* near-black background */
+      --surface:#121214;   /* cards/sections */
+      --ink:#f4f5f7;       /* primary text */
+      --muted:#a9acb3;     /* secondary text */
+      --line:#242428;      /* hairlines */
+      --brand:#ff7a00;     /* orange accent */
+      --brand-ink:#ffd7b0; /* softer accent text */
+      --radius:18px;
+      --max:1140px;
+      --shadow:0 20px 60px rgba(0,0,0,.5);
+    }
+
+    html{scroll-behavior:smooth}
+    @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+    *,*:before,*:after{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, "Helvetica Neue", Arial}
+    a{color:#fff;text-decoration:none}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:20;background:rgba(11,11,12,.6);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+    .nav{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px 20px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.3px}
+    .dot{width:12px;height:12px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 6px rgba(255,122,0,.12)}
+    .links a{margin-left:22px;color:var(--muted)}
+    .links a.active,.links a:hover{color:#fff}
+
+    /* Hero (full-bleed) */
+    .hero{position:relative;height:78vh;min-height:520px;display:grid;place-items:end;overflow:hidden}
+    .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(105%)}
+    .veil{position:absolute;inset:0;background:linear-gradient(180deg, rgba(11,11,12,0.2), rgba(11,11,12,0.85) 65%, rgba(11,11,12,1) 100%)}
+    .hero-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:0 20px 46px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--brand-ink);font-size:13px;text-transform:uppercase;letter-spacing:.22em}
+    .eyebrow:before{content:"";width:28px;height:1px;background:var(--brand)}
+    .h1{font-size:56px;line-height:1.05;margin:10px 0 12px;letter-spacing:-.02em}
+    .lead{max-width:760px;color:#d7dae0}
+    .cta{display:inline-flex;align-items:center;gap:10px;margin-top:20px;background:var(--brand);color:#1a1a1b;padding:14px 18px;border-radius:999px;font-weight:700}
+    .cta:hover{filter:brightness(1.05)}
+
+    /* Wrap + sections */
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+    section{padding:72px 0;border-top:1px solid var(--line)}
+    h2{font-size:28px;margin:0 0 10px;letter-spacing:.2px}
+    p{margin:0 0 10px}
+
+    /* Grids */
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+
+    /* Image sections (edge-to-edge) */
+    .band{position:relative}
+    .band img{width:100%;height:540px;object-fit:cover;display:block;filter:brightness(.7)}
+    .band .caption{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);width:100%;max-width:var(--max);padding:0 20px;color:#eaeef6}
+
+    /* Contact */
+    .contact{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+    label{font-size:12px;color:var(--muted)}
+    input,textarea,button{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);font:inherit;color:var(--ink);background:#111113}
+    textarea{min-height:120px}
+    button{cursor:pointer;background:var(--brand);color:#1a1a1b;font-weight:700}
+
+    footer{padding:44px 0;color:#8b8f96;border-top:1px solid var(--line);font-size:14px}
+
+    /* Subtle reveal animations */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+    @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+    /* Responsive */
+    @media (max-width: 1000px){.grid3{grid-template-columns:1fr 1fr}.contact{grid-template-columns:1fr}.hero{height:72vh}.h1{font-size:42px}}
+    @media (max-width: 680px){.grid3,.grid2{grid-template-columns:1fr}.h1{font-size:34px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand"><span class="dot" aria-hidden="true"></span>Muray Consulting</div>
+      <nav class="links">
+        <a href="#home" class="active">Home</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#approach">Approach</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO with full-bleed photography -->
+  <section id="home" class="hero" aria-label="Hero">
+    <!-- Royalty-free Unsplash images chosen to match dark/orange/industrial tone -->
+    <img src="https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?q=80&w=1920&auto=format&fit=crop" alt="Industrial structure at night" loading="eager" />
+    <div class="veil" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Non‑destructive imaging</div>
+      <h1 class="h1">See inside large, complex assets — without shutdowns.</h1>
+      <p class="lead">High‑fidelity density mapping through shielding and concrete. Actionable visuals for pipelines, furnaces, shafts, and infrastructure — delivered clearly and fast.</p>
+      <a class="cta" href="#contact">Start a conversation →</a>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <main class="wrap">
+    <section id="services">
+      <h2 class="reveal">Capabilities</h2>
+      <div class="grid3">
+        <div class="card reveal"><strong>Asset Integrity</strong><p>Find blockages, wall‑loss, and build‑up in pipelines, reformers, furnaces, and chimneys while systems stay online.</p></div>
+        <div class="card reveal"><strong>Subsurface Insight</strong><p>Map shafts, voids, and buried structures across industrial and heritage sites without intrusive works.</p></div>
+        <div class="card reveal"><strong>Infrastructure Health</strong><p>Diagnose density anomalies in bridges and large concrete elements to target invasive inspection precisely.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- EDGE-TO-EDGE IMAGE BAND 1 -->
+  <section class="band" aria-label="Work band">
+    <img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?q=80&w=1920&auto=format&fit=crop" alt="Bridge structure at dusk" loading="lazy" />
+    <div class="caption">
+      <h2 class="reveal">Built for scale</h2>
+      <p class="reveal">From refinery stacks to long-span bridges, our methods work where conventional NDT cannot reach.</p>
+    </div>
+  </section>
+
+  <!-- WORK SHOWCASE (photography-style tiles) -->
+  <section id="work" class="wrap">
+    <h2 class="reveal">Selected work</h2>
+    <div class="grid2">
+      <figure class="card reveal" style="padding:0;overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1600&auto=format&fit=crop" alt="Tunnel" style="width:100%;height:340px;object-fit:cover;display:block;filter:brightness(.85)" loading="lazy" />
+        <figcaption style="padding:14px 16px;border-top:1px solid var(--line)"><strong>Underground tunnel</strong><br><span style="color:var(--muted)">Void and obstruction assessment with minimal access</span></figcaption>
+      </figure>
+      <figure class="card reveal" style="padding:0;overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1541976590-713941681591?q=80&w=1600&auto=format&fit=crop" alt="Refinery" style="width:100%;height:340px;object-fit:cover;display:block;filter:brightness(.85)" loading="lazy" />
+        <figcaption style="padding:14px 16px;border-top:1px solid var(--line)"><strong>Process infrastructure</strong><br><span style="color:var(--muted)">In‑service diagnostics for stacks, furnaces, and lines</span></figcaption>
+      </figure>
+      <figure class="card reveal" style="padding:0;overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1518639192441-8fce0a366e2b?q=80&w=1600&auto=format&fit=crop" alt="Highway bridge" style="width:100%;height:340px;object-fit:cover;display:block;filter:brightness(.85)" loading="lazy" />
+        <figcaption style="padding:14px 16px;border-top:1px solid var(--line)"><strong>Bridge elements</strong><br><span style="color:var(--muted)">Density anomalies and targeted core sampling strategy</span></figcaption>
+      </figure>
+      <figure class="card reveal" style="padding:0;overflow:hidden">
+        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1600&auto=format&fit=crop" alt="Vertical shaft" style="width:100%;height:340px;object-fit:cover;display:block;filter:brightness(.85)" loading="lazy" />
+        <figcaption style="padding:14px 16px;border-top:1px solid var(--line)"><strong>Vertical shafts</strong><br><span style="color:var(--muted)">3D localization of voids and infill changes</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- EDGE-TO-EDGE IMAGE BAND 2 -->
+  <section class="band" aria-label="Approach band">
+    <img src="https://images.unsplash.com/photo-1483354483454-4cd359948304?q=80&w=1920&auto=format&fit=crop" alt="Steel structure" loading="lazy" />
+    <div class="caption">
+      <h2 class="reveal">A minimal, proven approach</h2>
+      <p class="reveal">Assess → Deploy → Analyse → Deliver. Clear visuals, executive summary, and recommendations — no jargon.</p>
+    </div>
+  </section>
+
+  <!-- APPROACH + CONTACT -->
+  <section id="approach" class="wrap">
+    <h2 class="reveal">How we work</h2>
+    <div class="grid3">
+      <div class="card reveal"><strong>1. Assess</strong><p>Short feasibility call and ROI check.</p></div>
+      <div class="card reveal"><strong>2. Deploy</strong><p>Compact detectors; no shutdowns required.</p></div>
+      <div class="card reveal"><strong>3. Analyse</strong><p>Calibrated reconstruction, QA, and concise outputs.</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="wrap">
+    <h2 class="reveal">Contact</h2>
+    <div class="contact">
+      <form class="card reveal" onsubmit="sendMessage(event)">
+        <label for="name">Your name</label>
+        <input id="name" name="name" placeholder="Jane Smith" required>
+        <label for="mail">Email</label>
+        <input id="mail" name="mail" type="email" placeholder="jane@example.com" required>
+        <label for="msg">Message</label>
+        <textarea id="msg" name="msg" placeholder="What asset or structure are you considering?" required></textarea>
+        <button type="submit">Send</button>
+        <p style="color:var(--muted);font-size:12px;margin:8px 0 0">By submitting, you agree to be contacted regarding your enquiry.</p>
+      </form>
+      <div class="card reveal">
+        <p><strong>Email:</strong> <a href="mailto:info@murayconsulting.com">info@murayconsulting.com</a></p>
+        <p><strong>Founder:</strong> Dr. Kamal Saoucha</p>
+        <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+        <p style="color:var(--muted);margin:0 0 8px">Embed a Zoho Form here (paste your iframe):</p>
+<pre style="margin:0;white-space:pre-wrap;background:#0e0e10;border:1px solid var(--line);padding:10px;border-radius:12px">&lt;iframe src="https://forms.zohopublic.com/your-form-id" width="100%" height="520" frameborder="0"&gt;&lt;/iframe&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">© <span id="y"></span> Muray Consulting — Sharjah, UAE</div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent=new Date().getFullYear();
+
+    // Reveal-on-scroll
+    const io = 'IntersectionObserver' in window ? new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:0.12}) : null;
+    document.querySelectorAll('.reveal').forEach(el=>{ if(io) io.observe(el); else el.classList.add('in'); });
+
+    // Active link highlight
+    const links=[...document.querySelectorAll('.links a')];
+    const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const obs = 'IntersectionObserver' in window ? new IntersectionObserver((entries)=>{
+      let topMost = entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+      if(topMost){
+        const id = '#'+topMost.target.id;
+        links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')===id));
+      }
+    },{rootMargin:'-40% 0px -50% 0px', threshold:[0,0.25,0.5,0.75,1]}) : null;
+    sections.forEach(s=>{ if(obs) obs.observe(s); });
+
+    // Free mailto handler
+    function sendMessage(e){
+      e.preventDefault();
+      const n=document.getElementById('name').value.trim();
+      const m=document.getElementById('mail').value.trim();
+      const t=document.getElementById('msg').value.trim();
+      const subject=encodeURIComponent('Website enquiry — '+n);
+      const body=encodeURIComponent(t+'\n\nFrom: '+n+' ('+m+')');
+      window.location.href='mailto:info@murayconsulting.com?subject='+subject+'&body='+body;
+    }
+  </script>
+</body>
+</html>
