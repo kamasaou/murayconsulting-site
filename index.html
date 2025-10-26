@@ -111,7 +111,7 @@
         </div>
         <div class="card">
           <strong>Built for large assets</strong>
-          <p>Comparable in principle to X‑ray scanners, but engineered for refineries, terminals, bridges, and buried infrastructure.</p>
+          <p>Comparable in principle to X-ray scanners, but engineered for refineries, terminals, bridges, and buried infrastructure.</p>
         </div>
         <div class="card">
           <strong>High penetration</strong>
@@ -125,7 +125,7 @@
       <div class="eyebrow">Capabilities</div>
       <h2>Where it helps</h2>
       <div class="grid3">
-        <div class="card"><strong>Asset Integrity</strong><p>Detect blockages, wall‑loss, and build‑up in pipelines and furnaces while systems remain operational.</p></div>
+        <div class="card"><strong>Asset Integrity</strong><p>Detect blockages, wall-loss, and build-up in pipelines and furnaces while systems remain operational.</p></div>
         <div class="card"><strong>Subsurface Insight</strong><p>Map shafts, voids, and buried structures without excavation.</p></div>
         <div class="card"><strong>Infrastructure Health</strong><p>Identify density anomalies in bridges and large concrete elements to guide maintenance decisions.</p></div>
       </div>
@@ -141,14 +141,14 @@
           <ul class="clean">
             <li>No production shutdown to acquire data.</li>
             <li>No artificial radiation source on site.</li>
-            <li>Deployed in constrained, high‑shielding environments.</li>
+            <li>Deployed in constrained, high-shielding environments.</li>
           </ul>
         </div>
         <div class="card">
           <strong>Actionable outputs</strong>
           <ul class="clean">
             <li>Quantitative density maps and anomaly localisation.</li>
-            <li>Clear go/no‑go guidance for maintenance.</li>
+            <li>Clear go/no-go guidance for maintenance.</li>
             <li>Executive summary with technical appendix.</li>
           </ul>
         </div>
@@ -161,11 +161,11 @@
       <h2>Lower impact, safer operations</h2>
       <div class="grid3">
         <div class="card"><strong>No artificial source</strong><p>Passive method uses natural cosmic radiation—no generators, permits, or exclusion zones.</p></div>
-        <div class="card"><strong>No shutdowns</strong><p>Inspections run during normal operation, avoiding energy‑ and emission‑heavy outages.</p></div>
+        <div class="card"><strong>No shutdowns</strong><p>Inspections run during normal operation, avoiding energy- and emission-heavy outages.</p></div>
         <div class="card"><strong>Less intrusive</strong><p>Minimal access and no cutting reduce waste, scaffolding, and reinstatement works.</p></div>
         <div class="card"><strong>Smaller footprint</strong><p>Compact equipment and short deployments lower site disruption and travel.</p></div>
-        <div class="card"><strong>Safer by design</strong><p>No on‑site radiation sources; passive measurements align with ALARA principles.</p></div>
-        <div class="card"><strong>Data‑driven maintenance</strong><p>Targeted interventions prevent unnecessary replacements and extend asset life.</p></div>
+        <div class="card"><strong>Safer by design</strong><p>No on-site radiation sources; passive measurements align with ALARA principles.</p></div>
+        <div class="card"><strong>Data-driven maintenance</strong><p>Targeted interventions prevent unnecessary replacements and extend asset life.</p></div>
       </div>
     </section>
 
@@ -174,15 +174,29 @@
       <div class="eyebrow">Contact</div>
       <h2>Start a conversation</h2>
       <div class="contact">
-        <form onsubmit="sendMessage(event)">
+        <!-- ✅ Formspree + hCaptcha version -->
+        <form id="contactForm" action="https://formspree.io/f/REPLACE_WITH_YOURS" method="POST">
+          <!-- Honeypot (invisible to humans; traps simple bots) -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-10000px" />
+
           <label for="name">Your name</label>
           <input id="name" name="name" placeholder="Jane Smith" required>
+
           <label for="mail">Email</label>
-          <input id="mail" name="mail" type="email" placeholder="jane@example.com" required>
+          <input id="mail" name="email" type="email" placeholder="jane@example.com" required>
+
           <label for="msg">What would you like to discuss?</label>
-          <textarea id="msg" name="msg" placeholder="Tell us about your project goals, challenges, or areas where insight could help your decision‑making…" required></textarea>
+          <textarea id="msg" name="message" placeholder="Tell us about your project goals, challenges, or areas where insight could help your decision-making…" required></textarea>
+
+          <!-- hCaptcha widget -->
+          <div class="h-captcha" data-sitekey="REPLACE_WITH_YOUR_HCAPTCHA_SITEKEY" style="margin:10px 0;"></div>
+
+          <!-- Optional Formspree helpers -->
+          <input type="hidden" name="_subject" value="Website enquiry" />
+          <input type="hidden" name="_template" value="table" />
+
           <button type="submit">Send message</button>
-          <p style="color:var(--muted);font-size:12px;margin-top:6px">By submitting, you agree to be contacted regarding your enquiry.</p>
+          <p id="formStatus" style="color:var(--muted);font-size:12px;margin-top:6px">By submitting, you agree to be contacted regarding your enquiry.</p>
         </form>
 
         <div class="contact-info">
@@ -201,16 +215,60 @@
     © 2025 Mu-ray Consulting
   </footer>
 
+  <!-- Load hCaptcha -->
+  <script src="https://hcaptcha.com/1/api.js" async defer></script>
+
+  <!-- Inline handler to POST to Formspree and show status messages -->
   <script>
-    function sendMessage(e){
-      e.preventDefault();
-      const n=document.getElementById('name').value.trim();
-      const m=document.getElementById('mail').value.trim();
-      const t=document.getElementById('msg').value.trim();
-      const subject=encodeURIComponent('Website enquiry — '+n);
-      const body=encodeURIComponent(t+'\n\nFrom: '+n+' ('+m+')');
-      window.location.href='mailto:contact@murayconsulting.com?subject='+subject+'&body='+body;
-    }
+    (function(){
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+
+      async function submitForm(e){
+        e.preventDefault();
+        status.style.color = 'var(--muted)';
+        status.textContent = 'Sending...';
+
+        // Abort if honeypot is filled (likely a bot)
+        const hp = form.querySelector('input[name="_gotcha"]');
+        if (hp && hp.value.trim()) { return; }
+
+        // Build payload (FormData lets hCaptcha token be included automatically)
+        const formData = new FormData(form);
+
+        try{
+          const r = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (r.ok){
+            form.reset();
+            // reset hCaptcha
+            if (window.hcaptcha) hcaptcha.reset();
+            status.style.color = '#7bd389';
+            status.textContent = 'Thanks—your message has been sent.';
+          } else {
+            // Try to extract Formspree error for clarity
+            let err = 'Could not send. Please try again.';
+            try {
+              const data = await r.json();
+              if (data && data.errors && data.errors.length) {
+                err = data.errors.map(e => e.message).join(' ');
+              }
+            } catch(_) {}
+            status.style.color = '#ff8a8a';
+            status.textContent = err;
+          }
+        }catch(err){
+          status.style.color = '#ff8a8a';
+          status.textContent = 'Network error. Please try again.';
+        }
+      }
+
+      form.addEventListener('submit', submitForm);
+    })();
   </script>
 </body>
 </html>
